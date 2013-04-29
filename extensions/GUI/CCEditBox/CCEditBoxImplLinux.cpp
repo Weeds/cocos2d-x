@@ -177,30 +177,45 @@ namespace cocos2d {
 			if (placeHolder.length() == 0)
 				placeHolder = "Enter value";
 
-			char pText[100] = { 0 };
-			std::string text = getText();
-			if (text.length())
-				strncpy(pText, text.c_str(), 100);
 
-			// TODO: actual input
-			bool didChange = false;
-			/*
-			bool didChange = CWin32InputBox::InputBox("Input", placeHolder.c_str(), pText, 100, false) == IDOK;
-
-			if (didChange)
-				setText(pText);
-			*/
-
-			if (m_pDelegate != NULL) {
-				if (didChange)
-					m_pDelegate->editBoxTextChanged(m_pEditBox, getText());
-				m_pDelegate->editBoxEditingDidEnd(m_pEditBox);
-				m_pDelegate->editBoxReturn(m_pEditBox);
-			}
+			this->attachWithIME();
 		}
 
 		void CCEditBoxImplLinux::closeKeyboard() {
+			this->detachWithIME();
+		}
 
+		void CCEditBoxImplLinux::insertText(const char * text, int len) {
+			if ( len > 0 && text[0] == '\n' ) {
+				if (m_pDelegate != NULL) {
+					m_pDelegate->editBoxEditingDidEnd(m_pEditBox);
+					m_pDelegate->editBoxReturn(m_pEditBox);
+
+				}
+			} else {
+				std::string newText = m_strText;
+				newText.insert(newText.size(), text, len);
+				setText(newText.c_str());
+				if ( m_pDelegate ) {
+					m_pDelegate->editBoxTextChanged(m_pEditBox, m_strText);
+				}
+			}
+		}
+
+		void CCEditBoxImplLinux::deleteBackward() {
+			std::string newText = m_strText;
+			if ( newText.empty() == false ) {
+				newText.erase(newText.end() - 1, newText.end());
+				setText(newText.c_str());
+				if ( m_pDelegate ) {
+					m_pDelegate->editBoxTextChanged(m_pEditBox, m_strText);
+				}
+			}
+
+		}
+
+		const char * CCEditBoxImplLinux::getContentText() {
+			return getText();
 		}
 
 		void CCEditBoxImplLinux::setPosition(const CCPoint& pos) {

@@ -90,7 +90,7 @@ void keyEventHandle(int iKeyID,int iKeyState) {
 		return;
 	}
 
-	if (iKeyID == GLFW_KEY_DEL) {
+	if (iKeyID == GLFW_KEY_DEL || iKeyID == GLFW_KEY_BACKSPACE) {
 		CCIMEDispatcher::sharedDispatcher()->dispatchDeleteBackward();
 	} else if (iKeyID == GLFW_KEY_ENTER) {
 		CCIMEDispatcher::sharedDispatcher()->dispatchInsertText("\n", 1);

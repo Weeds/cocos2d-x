@@ -33,7 +33,7 @@
 
 NS_CC_EXT_BEGIN
 
-class	CCEditBoxImplLinux : public CCEditBoxImpl {
+class	CCEditBoxImplLinux : public CCEditBoxImpl, public cocos2d::CCIMEDelegate {
 
 		public:
 		CCEditBoxImplLinux(CCEditBox* pEditText);
@@ -65,6 +65,12 @@ class	CCEditBoxImplLinux : public CCEditBoxImpl {
 		void setAnchorPoint(const CCPoint& anchorPoint);
 		void visit(void);
 		void onEnter(void);
+
+		void insertText(const char * text, int len);
+	    void deleteBackward();
+	    const char * getContentText();
+	    bool canAttachWithIME() { return true; }
+	    bool canDetachWithIME() { return true; }
 
 	private:
 

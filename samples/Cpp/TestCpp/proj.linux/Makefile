@@ -50,6 +50,7 @@ SOURCES = ../Classes/AccelerometerTest/AccelerometerTest.cpp \
 	../Classes/ExtensionsTest/ExtensionsTest.cpp \
 	../Classes/ExtensionsTest/NotificationCenterTest/NotificationCenterTest.cpp \
 	../Classes/ExtensionsTest/NetworkTest/HttpClientTest.cpp \
+	../Classes/ExtensionsTest/EditBoxTest/EditBoxTest.cpp \
 	../Classes/FontTest/FontTest.cpp \
 	../Classes/IntervalTest/IntervalTest.cpp \
 	../Classes/KeypadTest/KeypadTest.cpp \
